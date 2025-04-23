@@ -24,11 +24,31 @@ export default function Main() {
   const [numbers, setNumbers] = useState(allNewDice());
 
   const diceElements = numbers.map((number, id) => (
-    <Die key={number.id} value={number.randomNum} />
+    <Die
+      key={number.id}
+      value={number.randomNum}
+      status={number.isHeld}
+      hold={Hold}
+      id={number.id}
+    />
   ));
 
+  function Hold(id) {
+    setNumbers((prevNumbers) =>
+      prevNumbers.map((number) =>
+        number.id === id ? { ...number, isHeld: !number.isHeld } : number
+      )
+    );
+  }
+
   function rollDice() {
-    setNumbers(allNewDice());
+    setNumbers((prevNumbers) =>
+      prevNumbers.map((number) =>
+        number.isHeld
+          ? number
+          : { ...number, randomNum: Math.floor(Math.random() * 6 + 1) }
+      )
+    );
   }
 
   return (
