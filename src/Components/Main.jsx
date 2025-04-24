@@ -74,14 +74,14 @@ export default function Main() {
   }
   return (
     <div
-      className="border-16 border-black flex flex-col justify-center items-center
-      bg-gray-200 text-black mt-4 max-w-80 min-w-80 min-h-80 
+      className="border-16 border-black 
+      bg-gray-200 text-black mt-4 max-w-50 min-w-80 min-h-80 
     "
     >
       {gameWon && <ReactConfetti />}
       <div
         className="border-2 border-white w-full h-80
-       rounded-md flex flex-col items-center gap-2  "
+       rounded-md flex flex-col items-center justify-center gap-2 flex-nowrap  "
       >
         <h1 className="text-center mt-4 p-2 font-bold ">Tenzies</h1>
         <span className="block text-center p-2 ">
