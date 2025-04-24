@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Main from "./Components/Main";
-import Die from "./Components/Die";
+import Die from "./Components/DieComp";
 
 function App() {
   return (

@@ -1,62 +1,84 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-import Die from "./Die";
+import { useEffect } from "react";
+import DieComp from "./DieComp";
+import ReactConfetti from "react-confetti";
+import { useWindowSize } from "@react-hook/window-size";
 
 export default function Main() {
   function generateDice(id) {
     return {
       id: id,
-      randomNum: Math.floor(Math.random() * 6 + 1),
+      value: Math.floor(Math.random() * 6 + 1),
       isHeld: false,
     };
   }
 
   function allNewDice() {
-    const numbers = [];
+    const Dice = [];
 
     for (let i = 0; i < 10; i++) {
-      numbers.push(generateDice(i));
+      Dice.push(generateDice(i));
     }
 
-    return numbers;
+    return Dice;
   }
 
-  const [numbers, setNumbers] = useState(allNewDice());
+  const [Dice, setDice] = useState(() => allNewDice());
 
-  const diceElements = numbers.map((number, id) => (
-    <Die
-      key={number.id}
-      value={number.randomNum}
-      status={number.isHeld}
+  const playButton = useRef(null);
+
+  const gameWon =
+    Dice.every((Die) => Die.isHeld) &&
+    Dice.every((Die) => Die.value === Dice[0].value);
+
+  useEffect(() => {
+    if (gameWon) {
+      playButton.current.focus();
+    }
+  }, [gameWon]);
+
+  const diceElements = Dice.map((Die, id) => (
+    <DieComp
+      key={Die.id}
+      value={Die.value}
+      status={Die.isHeld}
       hold={Hold}
-      id={number.id}
+      id={Die.id}
     />
   ));
 
   function Hold(id) {
-    setNumbers((prevNumbers) =>
-      prevNumbers.map((number) =>
-        number.id === id ? { ...number, isHeld: !number.isHeld } : number
+    setDice((prevDice) =>
+      prevDice.map((Die) =>
+        Die.id === id ? { ...Die, isHeld: !Die.isHeld } : Die
       )
     );
   }
 
   function rollDice() {
-    setNumbers((prevNumbers) =>
-      prevNumbers.map((number) =>
-        number.isHeld
-          ? number
-          : { ...number, randomNum: Math.floor(Math.random() * 6 + 1) }
-      )
-    );
+    if (!gameWon) {
+      setDice((prevDice) =>
+        prevDice.map((Die) =>
+          Die.isHeld
+            ? Die
+            : { ...Die, value: Math.floor(Math.random() * 6 + 1) }
+        )
+      );
+    } else {
+      setDice(allNewDice());
+    }
   }
-
+  function newGame() {
+    setDice(allNewDice());
+  }
   return (
     <div
       className="border-16 border-black 
       bg-gray-200 text-black mt-4 w-80 min-h-80 
     "
     >
+      {gameWon && <ReactConfetti />}
       <div
         className="border-2 border-white w-full h-80
        rounded-md flex flex-col items-center gap-2  "
@@ -72,12 +94,13 @@ export default function Main() {
 
         <button
           onClick={rollDice}
+          ref={playButton}
           className="border border-none
-         w-20 mt-6 rounded-md bg-blue-700 text-white
-          font-bold hover:opacity-[50%]
+         min-w-20 mt-4 rounded-md bg-blue-700 text-white
+          font-medium p-1 hover:opacity-[50%]
            cursor-pointer shadow-[4px_6px_10px_rgba(0,0,0,0.5)]"
         >
-          Roll
+          {gameWon ? <p>New Game</p> : <p> Roll</p>}
         </button>
       </div>
     </div>

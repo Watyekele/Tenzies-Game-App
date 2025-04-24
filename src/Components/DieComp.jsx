@@ -1,4 +1,4 @@
-export default function Die(props) {
+export default function DieComp(props) {
   return (
     <button
       className={`border border-none text-lg
