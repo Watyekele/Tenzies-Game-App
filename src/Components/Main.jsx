@@ -74,8 +74,8 @@ export default function Main() {
   }
   return (
     <div
-      className="border-16 border-black 
-      bg-gray-200 text-black mt-4 w-80 min-h-80 
+      className="border-16 border-black flex flex-col justify-center items-center
+      bg-gray-200 text-black mt-4 max-w-80 min-w-80 min-h-80 
     "
     >
       {gameWon && <ReactConfetti />}
