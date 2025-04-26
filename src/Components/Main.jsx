@@ -81,14 +81,14 @@ export default function Main() {
       {gameWon && <ReactConfetti />}
       <div
         className="border-2 border-white w-full h-80
-       rounded-md flex flex-col items-center justify-center gap-2 flex-nowrap  "
+       rounded-md flex flex-col items-center place-content-evenly  gap-2 flex-nowrap  "
       >
-        <h1 className="text-center mt-4 p-2 font-bold ">Tenzies</h1>
-        <span className="block text-center p-2 ">
+        <h1 className="text-center   font-bold ">Tenzies</h1>
+        <span className="block text-center px-2 ">
           Roll untill all the dice are the same. Click each dice to freeze it at
           its crrent value between the rolls{" "}
         </span>
-        <section className="grid grid-cols-5 grid-rows-2 gap-4">
+        <section className="grid grid-cols-5 grid-rows-2 gap-4 ">
           {diceElements}
         </section>
 
@@ -96,7 +96,7 @@ export default function Main() {
           onClick={rollDice}
           ref={playButton}
           className="border border-none
-         min-w-20 mt-4 rounded-md bg-blue-700 text-white
+         min-w-20  rounded-md bg-blue-700 text-white
           font-medium p-1 hover:opacity-[50%]
            cursor-pointer shadow-[4px_6px_10px_rgba(0,0,0,0.5)]"
         >
