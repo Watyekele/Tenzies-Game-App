@@ -86,7 +86,7 @@ export default function Main() {
         <h1 className="text-center   font-bold ">Tenzies</h1>
         <span className="block text-center px-2 ">
           Roll untill all the dice are the same. Click each dice to freeze it at
-          its crrent value between the rolls{" "}
+          its current value between the rolls.{" "}
         </span>
         <section className="grid grid-cols-5 grid-rows-2 gap-4 ">
           {diceElements}
