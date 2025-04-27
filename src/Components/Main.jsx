@@ -108,7 +108,7 @@ export default function Main() {
         <div className="header flex flex-col gap-2">
           {" "}
           <h1 className="text-center   font-bold ">Tenzies</h1>
-          <span className="border p-1 text-sm rounded">
+          <span className="border border-dashed  p-1 text-sm rounded">
             {" "}
             <h2 className="font-semibold">Time: {time} seconds </h2>
           </span>
@@ -130,7 +130,11 @@ export default function Main() {
             font-medium p-1 hover:opacity-50
             cursor-pointer shadow-[4px_6px_10px_rgba(0,0,0,0.5)]
             transition-all duration-500 ease-out 
-            ${gameWon ? "scale-110 opacity-100" : "scale-100 opacity-90"}
+            ${
+              gameWon
+                ? "scale-110 opacity-100 animate-pulse "
+                : "scale-100 opacity-90"
+            }
           `}
         >
           {gameWon ? <p>New Game</p> : <p> Roll</p>}
