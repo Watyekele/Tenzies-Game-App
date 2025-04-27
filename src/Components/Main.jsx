@@ -107,7 +107,9 @@ export default function Main() {
       >
         <div className="header flex flex-col gap-2">
           {" "}
-          <h1 className="text-center   font-bold ">Tenzies</h1>
+          <h1 className="text-center text-2xl text-blue-900  font-bold ">
+            Tenzies
+          </h1>
           <span className="border border-dashed  p-1 text-sm rounded">
             {" "}
             <h2 className="font-semibold">Time: {time} seconds </h2>
