@@ -25,8 +25,11 @@ export default function Main() {
   }
 
   const [Dice, setDice] = useState(() => allNewDice());
+  const [time, setTime] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
 
   const playButton = useRef(null);
+  const timerRef = useRef(null);
 
   const gameWon =
     Dice.every((Die) => Die.isHeld) &&
@@ -37,6 +40,18 @@ export default function Main() {
       playButton.current.focus();
     }
   }, [gameWon]);
+
+  useEffect(() => {
+    if (hasStarted && !gameWon) {
+      timerRef.current = setInterval(() => {
+        setTime((prevTime) => prevTime + 1);
+      }, 1000);
+    } else {
+      clearInterval(timerRef.current);
+    }
+
+    return () => clearInterval(timerRef.current);
+  }, [hasStarted, gameWon]);
 
   const diceElements = Dice.map((Die, id) => (
     <DieComp
@@ -54,6 +69,10 @@ export default function Main() {
         Die.id === id ? { ...Die, isHeld: !Die.isHeld } : Die
       )
     );
+
+    if (!hasStarted) {
+      setHasStarted(true);
+    }
   }
 
   function rollDice() {
@@ -67,6 +86,7 @@ export default function Main() {
       );
     } else {
       setDice(allNewDice());
+      setTime(0);
     }
   }
   function newGame() {
@@ -78,12 +98,22 @@ export default function Main() {
       bg-gray-200 text-black mt-4 max-w-50 min-w-80 min-h-80 
     "
     >
-      {gameWon && <ReactConfetti />}
+      {gameWon && (
+        <ReactConfetti numberOfPieces={1000} recycle={false} gravity={1.5} />
+      )}
       <div
         className="border-2 border-white w-full h-80
        rounded-md flex flex-col items-center place-content-evenly  gap-2 flex-nowrap  "
       >
-        <h1 className="text-center   font-bold ">Tenzies</h1>
+        <div className="header flex flex-col gap-2">
+          {" "}
+          <h1 className="text-center   font-bold ">Tenzies</h1>
+          <span className="border p-1 text-sm">
+            {" "}
+            <h2 className="font-semibold">Time: {time} seconds </h2>
+          </span>
+        </div>
+
         <span className="block text-center px-2 ">
           Roll untill all the dice are the same. Click each dice to freeze it at
           its current value between the rolls.{" "}
