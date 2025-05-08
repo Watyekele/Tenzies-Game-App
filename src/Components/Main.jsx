@@ -124,7 +124,7 @@ export default function Main() {
         <button
           onClick={rollDice}
           ref={playButton}
-          className={`border border-none
+          className={` border-none
             min-w-20 rounded-md bg-blue-700 text-white
             font-medium p-1 hover:opacity-50
             cursor-pointer shadow-[4px_6px_10px_rgba(0,0,0,0.5)]

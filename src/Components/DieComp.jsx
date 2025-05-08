@@ -1,7 +1,7 @@
 export default function DieComp(props) {
   return (
     <button
-      className={`border border-none text-lg
+      className={` border-none text-lg
         w-8 mt-2 rounded-md font-bold ${
           props.status ? "bg-green-500" : "bg-white-100"
         } 
