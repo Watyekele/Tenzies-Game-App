@@ -121,7 +121,6 @@ export default function Main() {
         <section className="grid grid-cols-5 grid-rows-2 gap-4 ">
           {diceElements}
         </section>
-
         <button
           onClick={rollDice}
           ref={playButton}
